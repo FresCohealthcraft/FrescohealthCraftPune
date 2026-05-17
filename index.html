@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FresCo HealthCraft</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:       #f8fbf4;
+  --surface:  #141f17;
+  --card:     #daebc6;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.12);
+  --forest:   #eaf4dc;   /* FIXED: was ##eaf4dc */
+  --leaf:     #4a9e5e;
+  --sage:     #1a6b3a;
+  --amber:    #d4721a;
+  --amber-l:  #f0914a;
+  --text:     #e8f0ea;
+  --muted:    #000000;
+  --muted2:   #000000;
+  --wa:       #25D366;
+  --red:      #e05050;
+  --black:    #000000;
+  --rashmi:   var(--amber);
+
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { height:100%; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--black);
+  min-height: 100vh;
+  padding-bottom: 110px;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN TEXTURE ─── */
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:9999;
+  opacity:.5;
+}
+
+/* ─── HEADER ─── */
+.header {
+  background: linear-gradient(180deg, #eff5e9 0%, #eff5e9 100%);
+  position: sticky;
+  top:0;
+  z-index:100;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+}
+
+.header-top {
+  display:flex;
+  align-items:center;
+  padding: 10px 18px 0px;
+  justify-content:space-between;
+  margin-bottom: 2px;
+}
+
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500px;
+  color: var(--black);
+  letter-spacing: 0.3px;
+}
+
+.logo em {
+  font-style: italic;
+  color: var(--sage);
+}
+
+.cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--amber);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(212,114,26,0.35);
+}
+
+.cart-btn:active { transform: scale(0.95); }
+
+.cart-dot {
+  background: white;
+  color: var(--amber);
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-dot.on { display:flex; }
+
+.header-sub {
+  font-size: 10px;
+  letter-spacing: 1px;
+  right: 18px;
+padding: 8px 18px 5px;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: 28px 18px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content:'';
+  position:absolute;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74,158,94,0.12) 0%, transparent 70%);
+  right: -80px; top: -60px;
+  pointer-events:none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage);
+  background: rgba(74,158,94,0.1);
+  border: 1px solid rgba(74,158,94,0.2);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.hero-eyebrow::before {
+  content:'';
+  width:5px; height:5px;
+  border-radius:50%;
+  background: var(--sage);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:0.2; }
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  color: var(--black);
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--sage);
+}
+
+.hero-desc {
+  font-size: 13px;
+  color: var(--black);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 280px;
+  margin-bottom: 18px;
+}
+
+.hero-chips {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  letter-spacing: 0.3px;
+}
+
+/* ─── SECTION LABEL ─── */
+.section-label {
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  padding: 10px 18px 10px;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 8px;
+
+  
+  
+}
+
+/* ─── CATEGORY GRID ─── */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 0px 18px 10px;
+}
+
+
+
+.cat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 10px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.22s;
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-card::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 0%, rgba(74,158,94,0.1) 0%, transparent 70%);
+  opacity:0;
+  transition: opacity 0.25s;
+}
+
+.cat-card:hover::before, .cat-card.active::before { opacity:1; }
+
+.cat-card.active {
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 1px rgba(74,158,94,0.2), 0 6px 24px rgba(74,158,94,0.12);
+}
+
+.cat-card:active { transform: scale(0.96); }
+
+.cat-emoji {
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.cat-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.3;
+}
+
+.cat-card.active .cat-name { color: var(--sage); }
+
+
+/* ADD BUTTON */
+.add-btn {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: var(--forest);
+  border: 1px solid rgba(74,158,94,0.3);
+  color: var(--sage);
+  font-size: 20px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex; align-items:center; justify-content:center;
+  transition: all 0.15s;
+  flex-shrink:0;
+}
+
+.add-btn:active { transform:scale(0.88); background: var(--leaf); color: white; }
+
+/* QTY CONTROL */
+.qty-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--forest);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.qty-btn {
+  width: 32px; height: 32px;
+  background: none;
+  border: none;
+  color: var(--sage);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items:center; justify-content:center;
+  transition: background 0.1s;
+}
+
+.qty-btn:active { background: rgba(255,255,255,0.06); }
+
+.qty-num {
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+  color: var(--black);
+}
+
+/* ─── EMPTY STATE ───---------------------------------------------------------------------- */
+.empty {
+  text-align: center;
+  padding: 90px 30px 10px;
+  color: var(--muted);
+}
+.empty-icon { font-size: 30px; margin-bottom:12px; }
+.empty-text { font-size: 13px; font-weight:300; }
+
+/* ─── CART OVERLAY ─── */
+.overlay {
+  position:fixed; inset:0;
+  background: rgba(0,0,0,0.7);
+  z-index:300;
+  opacity:0; pointer-events:none;
+  transition: opacity 0.3s;
+}
+.overlay.open { opacity:1; pointer-events:all; }
+
+/* ─── CART DRAWER ─── */
+.drawer {
+  position:fixed;
+  bottom:0; left:0; right:0;
+  background: #f8fbf4;
+  border-radius: 24px 24px 0 0;
+  border-top: 1px solid var(--border2);
+  z-index:400;
+  max-height: 86vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
+  padding-bottom: 40px;
+}
+
+.drawer.open { transform: translateY(0); }
+
+.drawer-pill {
+  width:36px; height:4px;
+  background: rgba(0,0,0,0.12);
+  border-radius:2px;
+  margin: 14px auto 0;
+}
+
+.drawer-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  position:sticky; top:0;
+  background: #f8fbf4;
+  z-index:1;
+}
+
+.drawer-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.drawer-title em { font-style:italic; color:var(--sage); }
+
+.drawer-sub {
+  font-size: 11px;
+  color: #555;
+  margin-top:2px;
+}
+
+.close-x {
+  background: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.1);
+  width:30px; height:30px;
+  border-radius:50%;
+  color:#555;
+  font-size:16px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+
+/* CART ITEMS */
+.cart-list { padding: 6px 0; }
+
+.ci-row {
+  display:flex;
+  align-items:center;
+  padding:12px 18px;
+  gap:12px;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+}
+
+.ci-info { flex:1; min-width:0; }
+.ci-name { font-size:13px; font-weight:500; color:var(--black); }
+.ci-unit { font-size:11px; color:#666; font-weight:300; }
+
+.ci-right { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+
+.ci-price {
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;
+  font-weight:600;
+  color:var(--sage);
+  min-width:48px;
+  text-align:right;
+}
+
+.ci-del {
+  background:none; border:none;
+  color: rgba(0,0,0,0.2);
+  font-size:16px;
+  cursor:pointer;
+  transition:color 0.2s;
+  line-height:1; padding:2px;
+}
+.ci-del:hover { color:var(--red); }
+
+/* CART EMPTY */
+.cart-empty {
+  text-align:center;
+  padding:44px 20px;
+  color:#666;
+}
+
+/* DRAWER FOOTER */
+.drawer-footer {
+  padding:14px 18px 0;
+  position:sticky; bottom:0;
+  background: #f8fbf4;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display:none;
+}
+
+.total-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+
+.total-label {
+  font-size:10px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:#666;
+}
+
+.total-amt {
+  font-family:'Cormorant Garamond',serif;
+  font-size:30px;
+  font-weight:600;
+  color:var(--black);
+}
+
+.wa-btn {
+  width:100%;
+  background: var(--wa);
+  color:white;
+  border:none;
+  padding:16px;
+  border-radius:14px;
+  font-family:'Outfit',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.3);
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.wa-btn:active { transform:scale(0.98); }
+.wa-btn:hover { box-shadow:0 8px 30px rgba(37,211,102,0.4); }
+
+/* ─── FLOAT BAR ─── */
+.float-bar {
+  position:fixed;
+  bottom:16px; left:16px; right:16px;
+  background: var(--card);
+  border: 1px solid var(--card);
+  border-radius:16px;
+  padding:13px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  cursor:pointer;
+  z-index:200;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 0 0 1px rgba(74,158,94,0.1);
+  transform:translateY(120px);
+  opacity:0;
+  transition: transform 0.4s cubic-bezier(0.32,0.72,0,1), opacity 0.3s;
+  pointer-events:none;
+}
+
+.float-bar.show {
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:all;
+}
+
+.float-bar:active { transform:scale(0.98); }
+
+.fb-left { display:flex; align-items:center; gap:10px; }
+
+.fb-badge {
+  background: var(--amber);
+  color:white;
+  width:26px; height:26px;
+  border-radius:50%;
+  font-size:12px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.fb-label { font-size:12px; color:#555; }
+
+.fb-total {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  font-weight:600;
+  color:var(--black);
+}
+
+.fb-cta {
+  background: var(--amber);
+  color:white;
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.5px;
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position:fixed;
+  top:72px; left:50%; transform:translateX(-50%) translateY(-16px);
+  background: rgba(74,158,94,0.95);
+  color:white;
+  padding:8px 18px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:500;
+  z-index:500;
+  opacity:0;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events:none;
+  white-space:nowrap;
+}
+
+.toast.show {
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+
+/* ─── ITEMS SECTION ─── */
+.items-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 30px 20px 12px;
+}
+
+.items-cat-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.items-cat-name em { font-style: italic; color: var(--sage); }
+
+.items-count {
+  font-size: 11px;
+  color: var(--black);
+  letter-spacing: 1px;
+}
+
+.items-list {
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ─── ITEM CARD ─── */
+.item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 15px;
+  display: flex;
+  align-items: center;
+   position: relative;
+  overflow: hidden;
+  justify-content: space-between;
+  gap: 12px;
+  transition: border-color 0.2s;
+  animation: slideIn 0.25s ease both;
+}
+
+@keyframes slideIn {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.item.in-cart { border-color: rgba(74,158,94,0.3); }
+
+.item-info { flex:1; min-width:0; }
+
+.item-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+
+.item-desc {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+    line-height: 1.6;
+
+  text-overflow: ellipsis;
+  font-weight: 300;
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.item-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--sage);
+  white-space: nowrap;
+}
+
+
+
+/* ─── WHY US ─── */
+.why-section {
+  background: var(--forest);
+  color: black;
+  padding: 20px 20px;
+  position: relative;
+  overflow: hidden;
+  padding-top: 10px;
+}
+
+.why-section::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: rgba(197,190,190,0.03);
+  right: -150px; top: -150px;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  background:#f5f7f2;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.why-card {
+  background: #ddedc9;
+  padding: 20px 20px;
+  transition: background 0.25s;
+}
+
+.why-card:hover { background: rgba(255,255,255,0.08); }
+
+.why-icon { font-size: 36px; margin-bottom: 16px; }
+
+.why-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 8px;
+}
+
+.why-desc {
+  font-size: 13px;
+  color: black;
+     font-weight: 300;
+}
+
+/* ─── PROCESS ─── */
+.process-section {
+  padding: 20px 20px;
+  background: var(--bg);
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 56px;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: calc(12.5% + 20px);
+  right: calc(12.5% + 20px);
+  height: 1px;
+  background: linear-gradient(to right, var(--sage), var(--amber));
+  z-index: 0;
+}
+
+.step {
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.step-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: black;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.step-desc {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ─── TESTIMONIAL ─── */
+.testimonial-section {
+  padding: 64px 48px;
+  background: var(--bg);
+  text-align: center;
+}
+
+.quote-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 120px;
+  line-height: 0.5;
+  color: var(--sage);
+  margin-bottom: -20px;
+}
+
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  max-width: 700px;
+  margin: 0 auto 28px;
+  line-height: 1.5;
+}
+
+.quote-author {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #666;
+}
+
+/* ─── CONTACT ─── */
+.contact-section {
+  padding: 64px 48px;
+  background: var(--forest);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.contact-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.contact-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.contact-val {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--black);
+}
+
+.order-card {
+  background: #dfedcc;
+  border-radius: 20px;
+  padding: 44px 40px;
+  text-align: center;
+}
+
+.order-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.order-card h3 em { font-style:italic; color: var(--sage); }
+
+.order-card p {
+  font-size: 14px;
+  color: black;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.wa-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+}
+.wa-link-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37,211,102,0.45); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #eaf3de;
+  color: #262c1e;
+  padding: 40px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: #262c1e;
+}
+
+.footer-logo em { font-style: italic; color: var(--sage); }
+
+.footer-copy { font-size: 12px; letter-spacing: 1px; }
+
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: black; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--sage); }
+
+/* ─── WA FLOAT ─── */
+.wa-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 400;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: popIn 0.5s 1.5s both;
+}
+
+.wa-float:hover { transform: scale(1.1) rotate(-5deg); }
+
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-stagger.visible > *:nth-child(1) { opacity:1;transform:none;transition-delay:0s; }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1;transform:none;transition-delay:0.1s; }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1;transform:none;transition-delay:0.2s; }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1;transform:none;transition-delay:0.3s; }
+.reveal-stagger.visible > *:nth-child(5) { opacity:1;transform:none;transition-delay:0.4s; }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1;transform:none;transition-delay:0.5s; }
+
+.flogoP {
+  width: 75px;
+}
+
+/* ─── SECTION HEADERS ─── */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--black);
+}
+
+.section-title em { font-style: italic; color: var(--sage); }
+
+.section-sub {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+  .contact-section { grid-template-columns: 1fr; padding: 40px 18px; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .process-steps::before { display: none; }
+  .testimonial-section { padding: 40px 18px; }
+  footer { padding: 30px 18px; flex-direction: column; text-align: center; }
+}
+
+/* ─── CUSTOMER DETAILS FORM ─── */
+.customer-form {
+  padding: 14px 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-section-label {
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--sage);
+  font-weight: 600;
+  margin-bottom: 2px;
+  padding: 0;
+}
+
+.form-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-field input,
+.form-field textarea {
+  background: var(--forest);
+  border: 1.5px solid rgba(74,158,94,0.18);
+  border-radius: 12px;
+  padding: 12px 14px 12px 40px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  color: var(--black);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  resize: none;
+}
+
+.form-field textarea {
+  min-height: 70px;
+  padding-top: 12px;
+  line-height: 1.5;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(120,196,137,0.12);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #999;
+  font-weight: 300;
+}
+
+.form-field .field-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.form-field.textarea-field .field-icon {
+  top: 14px;
+  transform: none;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.field-error {
+  font-size: 10px;
+  color: var(--red);
+  margin-top: 3px;
+  padding-left: 4px;
+  display: none;
+}
+
+
+.menu-section-divider {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 18px 10px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+
+.form-field.has-error input,
+.form-field.has-error textarea {
+  border-color: var(--red);
+}
+
+.form-field.has-error .field-error {
+  display: block;
+}
+
+/* ─── DELIVERY BANNER ─── */
+.delivery-banner {
+  margin: 0 18px 10px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 0.3s;
+}
+.delivery-banner.free {
+  background: rgba(74,158,94,0.12);
+  color: #2d7a3e;
+  border: 1px solid rgba(74,158,94,0.25);
+}
+.delivery-banner.paid {
+  background: rgba(212,114,26,0.1);
+  color: #a0510e;
+  border: 1px solid rgba(212,114,26,0.2);
+}
+
+/* ─── BILL BREAKDOWN ─── */
+.bill-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #555;
+  padding: 3px 0;
+}
+.bill-row.free-tag { color: #2d7a3e; font-weight: 600; }
+.bill-divider { border: none; border-top: 1px dashed rgba(0,0,0,0.1); margin: 8px 0; }
+.grand-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.grand-label {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #666;
+}
+.grand-amt {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--black);
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Added to cart</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <img src="logo.png" class="flogoP" alt="FresCo Logo"/>
+    <div class="logo">FresCo HealthCraft</div>
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Cart
+      <span class="cart-dot" id="cartDot">0</span>
+    </button>
+  </div>
+  <div class="header-sub">Pune's finest wellness · Order fresh daily</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Daily Fresh · Zero Preservatives</div>
+
+
+  <h1 class="hero-title"> Crafting <em>Wellness.<br>Nurturing</em> Life.</h1>
+  <p class="hero-desc">Power-packed blends made fresh with nature’s goodness every day..</p>
+  <div class="hero-chips">
+    <span class="chip">🌿 100% Natural</span>
+    <span class="chip">🚫 No Sugar Added</span>
+    <span class="chip">⚡ Daily Fresh</span>
+  </div>
+</div>
+
+<!-- ─── MENU SECTION 1: Daily Items ─── -->
+<div class="section-label">What are you craving?</div>
+<div class="cat-grid" id="catGrid1"></div>
+
+<!-- ─── MENU SECTION 2: Combos & Plans ─── -->
+<div class="menu-section-divider">Combos Subscription Plans. </div>
+<div class="cat-grid" id="catGrid2"></div>
+
+<!-- ITEMS AREA -->
+
+<div class="items-header" id="itemsHeader" style="display:none">
+
+  <div class="items-cat-name" id="itemsCatName"></div>
+  <div class="items-count" id="itemsCount"></div>
+</div>
+<div class="items-list" id="itemsList"></div>
+<div class="empty" id="emptyState">
+  <div class="empty-icon">🌿</div>
+  <div class="empty-text">Select a category above<br>to browse the menu</div>
+</div>
+
+<!-- FLOAT BAR -->
+<div class="float-bar" id="floatBar" onclick="openCart()">
+  <div class="fb-left">
+    <div class="fb-badge" id="fbBadge">0</div>
+    <div class="fb-label" id="fbLabel">items in cart</div>
+  </div>
+  <div class="fb-total" id="fbTotal">₹0</div>
+  <div class="fb-cta">View Order →</div>
+</div>
+
+<!-- OVERLAY + DRAWER -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-pill"></div>
+  <div class="drawer-head">
+    <div>
+      <div class="drawer-title">Your <em>Order</em></div>
+      <div class="drawer-sub" id="drawerSub">Nothing added yet</div>
+    </div>
+    <button class="close-x" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-list" id="cartList"></div>
+
+  <!-- CUSTOMER DETAILS FORM -->
+  <div class="customer-form" id="customerForm" style="display:none">
+    <div class="form-section-label">Your Details</div>
+
+    <div class="form-row">
+      <div class="form-field" id="fieldName">
+        <span class="field-icon">👤</span>
+        <input type="text" id="custName" placeholder="Your Name" maxlength="60" autocomplete="name"/>
+        <div class="field-error">Please enter your name</div>
+      </div>
+      <div class="form-field" id="fieldPhone">
+        <span class="field-icon">📞</span>
+        <input type="tel" id="custPhone" placeholder="Mobile Number" maxlength="15" autocomplete="tel"/>
+        <div class="field-error">Enter a valid number</div>
+      </div>
+    </div>
+
+    <div class="form-field textarea-field" id="fieldAddress">
+      <span class="field-icon">📍</span>
+      <textarea id="custAddress" placeholder="Delivery Address" rows="2"></textarea>
+      <div class="field-error">Please enter your address</div>
+    </div>
+
+    <div class="form-field" id="fieldTime">
+      <span class="field-icon">🕐</span>
+      <input type="time" id="custTime" min="07:00" max="21:00"/>
+      <div class="field-error">Please select a delivery time</div>
+    </div>
+  </div>
+
+  <div class="drawer-footer" id="drawerFooter">
+    <!-- delivery notice banner -->
+    <div class="delivery-banner free" id="deliveryBanner">
+      <span>🚚</span>
+      <span id="deliveryBannerText">Free delivery on this order!</span>
+    </div>
+    <!-- bill breakdown -->
+    <div class="bill-row">
+      <span>Subtotal</span>
+      <span id="subtotalAmt">₹0</span>
+    </div>
+    <div class="bill-row" id="deliveryRow">
+      <span>Delivery</span>
+      <span id="deliveryAmt">₹0</span>
+    </div>
+    <hr class="bill-divider"/>
+    <div class="grand-row">
+      <div class="grand-label">Total Payable</div>
+      <div class="grand-amt" id="totalAmt">₹0</div>
+    </div>
+    <button class="wa-btn" onclick="sendOrder()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.564 4.14 1.546 5.875L0 24l6.335-1.56A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.893 0-3.673-.516-5.197-1.415l-.371-.221-3.862.95.986-3.767-.243-.388C2.512 15.601 2 13.863 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Place Order via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- WHY US -->
+<section class="why-section" id="why">
+  <div class="reveal">
+    <div class="section-eyebrow">Our Promise</div>
+    <h2 class="section-title">Why <em>FresCo</em>?</h2>
+    <p class="section-sub">We believe real food needs no labels. No preservatives, no shortcuts — just nature's finest, crafted with intention.</p>
+  </div>
+  <div class="why-grid reveal-stagger">
+    <div class="why-card">
+      <div class="why-icon">🌿</div>
+      <div class="why-title">100% Natural</div>
+      <div class="why-desc">Every ingredient is sourced fresh, whole, and untouched by artificial additives.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🚫</div>
+      <div class="why-title">Zero Sugar Added</div>
+      <div class="why-desc">No refined sugars, no syrups. Only the natural sweetness of fruits and vegetables.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💪</div>
+      <div class="why-title">Nutrient-Dense</div>
+      <div class="why-desc">Vitamins, minerals, and antioxidants intact — because real nutrition matters.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🏠</div>
+      <div class="why-title">Home Crafted</div>
+      <div class="why-desc">Made in a clean, caring kitchen — with the love and precision of home cooking.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="reveal" style="text-align:center">
+    <div class="section-eyebrow" style="justify-content:center">How It Works</div>
+    <h2 class="section-title" style="margin:0 auto 16px;text-align:center">Farm to <em>Your Door</em></h2>
+  </div>
+  <div class="process-steps reveal-stagger">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Fresh Sourcing</div>
+      <div class="step-desc">Hand-picked produce from trusted local farms every morning.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Careful Crafting</div>
+      <div class="step-desc">Cold-pressed and prepped with zero shortcuts in our clean kitchen.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">You Order</div>
+      <div class="step-desc">Drop us a WhatsApp message — it takes just 30 seconds.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Swift Delivery</div>
+      <div class="step-desc">Your order arrives fresh, chilled, and ready to nourish.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section reveal">
+  <div class="quote-mark">"</div>
+  <p class="quote-text">
+    FresCo has completely changed my mornings. The Immunity Booster is part of my daily ritual now — fresh, clean, and genuinely powerful.
+  </p>
+  <div class="quote-author">— A Happy Customer, Pune</div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="reveal">
+    <div class="section-eyebrow">Get In Touch</div>
+    <h2 class="section-title">Let's <em>Connect</em></h2>
+    <p class="section-sub">Have questions about our menu or want a custom order? Reach out — we'd love to help.</p>
+        <!-- PHONE -->
+    <div>
+
+      <a href="tel:+918983363146" class="contact-row call-link">
+
+        <div class="contact-icon">📞</div>
+
+        <div>
+          <div class="contact-label">
+            Phone / WhatsApp
+          </div>
+
+          <div class="contact-val">
+            +91 89833 63146
+          </div>
+        </div>
+
+      </a>
+
+    </div>
+
+    <!-- LOCATION -->
+    <a 
+      href="https://maps.app.goo.gl/LZSfcrBDoz5hyFSo6?g_st=aw"
+      target="_blank"
+      class="contact-row location-link"
+    >
+
+      <div class="contact-icon">📍</div>
+
+      <div>
+        <div class="contact-label">
+          Location
+        </div>
+
+        <div class="contact-val">
+          Pune, Maharashtra, India
+        </div>
+      </div>
+
+    </a>
+      <div class="contact-row">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label">Order Hours</div>
+          <div class="contact-val">Daily • 7 AM – 11 PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="order-card reveal">
+    <h3>Ready to <em>Order?</em></h3>
+    <p>Place your order in seconds via WhatsApp. Fresh, healthy, and delivered with care — every single time.</p>
+    <a class="wa-btn" href="https://wa.me/918983363146?text=Hello%20FresCo!%20I%20want%20to%20order%20🌿">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.564 4.14 1.546 5.875L0 24l6.335-1.56A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.893 0-3.673-.516-5.197-1.415l-.371-.221-3.862.95.986-3.767-.243-.388C2.512 15.601 2 13.863 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Order on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Fres<em>Co</em> HealthCraft</div>
+  <div class="footer-copy">© 2026 FresCo HealthCraft • Crafted with 🌿 in Pune</div>
+  <div class="footer-links">
+    <a href="#">Home</a>
+    <a href="#why">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa-float" href="https://wa.me/918983363146?text=Hello%20FresCo!%20I%20want%20to%20order%20🌿" title="Order on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.564 4.14 1.546 5.875L0 24l6.335-1.56A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.893 0-3.673-.516-5.197-1.415l-.371-.221-3.862.95.986-3.767-.243-.388C2.512 15.601 2 13.863 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+const WA_NUMBER = "918983363146";
+
+/* ═══════════════════════════════════════════════
+   MENU DATA — Section 1: Daily Items
+═══════════════════════════════════════════════ */
+const CATS1 = [
+  { id:"fruit",              emoji:"🍊", name:"Fruit Juice" },
+  { id:"green",              emoji:"🥬", name:"Green Vitality Juice" },
+  { id:"Fruitcup",           emoji:"🍓", name:"Fruit Cup" },
+  { id:"sprouts",            emoji:"🌱", name:"SuperFood Sprouts Bowl" },
+  { id:"Protein",            emoji:"🍇", name:"Protein Power Cup" },
+  { id:"Shakes",             emoji:"💪", name:"Shakes" },
+  { id:"Special",            emoji:"🍃", name:"Special" },
+  { id:"FrescoPowerJuices",  emoji:"⚡", name:"Fresco Power Juices" },
+];
+
+const MENU1 = {
+  fruit: [
+    { n:"Watermelon Juice",    d:"Fresh seasonal watermelon",           p:60 },
+    { n:"Mosambi Juice",       d:"Sweet lime, freshly pressed",         p:70 },
+    { n:"Pineapple Juice",     d:"Tropical & tangy",                    p:70 },
+    { n:"Mango Juice",         d:"Seasonal Alphonso mango",             p:80 },
+    { n:"Apple Juice",         d:"Cold-pressed apple",                  p:80 },
+    { n:"Orange Juice",        d:"Freshly squeezed orange",             p:80 },
+    { n:"Ganga Jamuna Juice",  d:"Orange + Mosambi blend",              p:80 },
+    { n:"Pomegranate Juice",   d:"Rich in antioxidants",                p:140 },
+    { n:"Nimbu Pani Juice",    d:"Fresh lime water",                    p:40 },
+  ],
+  green: [
+    { n:"Tomato Juice",      d:"Fresh garden tomatoes",                 p:50 },
+    { n:"Cucumber Juice",    d:"Cooling & hydrating",                   p:50 },
+    { n:"Lauki Juice",       d:"Bottle gourd, low calorie",             p:50 },
+    { n:"Palak Juice",       d:"Iron-rich spinach",                     p:50 },
+    { n:"Karela Juice",      d:"Bitter gourd, blood sugar support",     p:60 },
+    { n:"Beetroot Juice",    d:"Deep red, rich in iron",                p:60 },
+    { n:"Carrot Juice",      d:"Beta-carotene boost",                   p:60 },
+    { n:"Ash Gourd Juice",   d:"Cooling & digestive",                   p:60 },
+  ],
+  Fruitcup: [
+    { n:"Classic Delight Cup", d:"Seasonal fruits, lightly spiced",     p:79 },
+    { n:"Exotic Delight Cup",  d:"Premium exotic fruit selection",      p:99 },
+  ],
+  sprouts: [
+    { n:"Sprouts Bowl", d:"Fresh sprouted moong & chana goodness",      p:80 },
+  ],
+  Protein: [
+    { n:"Protein Power Cup", d:"High-protein fruit & nut cup",          p:119 },
+  ],
+  Shakes: [
+    { n:"Banana Shake",          d:"Thick & creamy, natural banana",    p:120 },
+    { n:"Apple Shake",           d:"Fresh apple blended smooth",        p:130 },
+    { n:"Muskmelon Shake",       d:"Sweet summer muskmelon",            p:150 },
+    { n:"Mango Shake",           d:"Rich seasonal mango",               p:180 },
+    { n:"Energy Boost Shake",    d:"Multi-fruit energy blend",          p:140 },
+  ],
+  Special: [
+    { n:"Chocolate Frozen Banana",  d:"Banana dipped in dark chocolate", p:69 },
+    { n:"Apple Chocofrost Candy",   d:"Apple with chocolate frost",      p:49 },
+    { n:"Grapes Chocofrost Candy",  d:"Frozen grapes, chocolate coated", p:39 },
+    { n:"Mango Chocofrost Candy",   d:"Mango pieces, chocolate frost",   p:49 },
+  ],
+  FrescoPowerJuices: [
+    { n:"ABC Drink",          d:"Apple, Beetroot & Carrot",             p:100 },
+    { n:"Immunity Booster",   d:"Ginger, turmeric & citrus",            p:100 },
+    { n:"Super Women",        d:"Iron & hormone-balancing blend",       p:100 },
+    { n:"Vital Energy Drink", d:"Natural energy from roots & greens",   p:100 },
+    { n:"Stress Relief",      d:"Adaptogenic calming blend",            p:100 },
+    { n:"Iron Rich",          d:"Beetroot, spinach & pomegranate",      p:100 },
+    { n:"Skin Glow-up",       d:"Vitamin C & collagen boosters",        p:80 },
+    { n:"Liver Cleanser",     d:"Detox blend for liver health",         p:80 },
+    { n:"Heart Care",         d:"Omega & antioxidant rich blend",       p:80 },
+    { n:"Fat Burner",         d:"Metabolism-boosting greens",           p:70 },
+    { n:"Detox Body",         d:"Deep cleanse vegetable blend",         p:70 },
+    { n:"Gut Reset",          d:"Probiotic & fibre rich blend",         p:70 },
+    { n:"Clear Vision",       d:"Carrot, amla & bilberry blend",        p:70 },
+  ],
+};
+
+/* ═══════════════════════════════════════════════
+   MENU DATA — Section 2: Combos & Plans
+═══════════════════════════════════════════════ */
+const CATS2 = [
+{ id:"WeeklySubscriptionSpecialMenu", emoji:"🗒️", name:"Weekly Subscription Menu" },
+  { id:"DetoxDuo",                      emoji:"🥗", name:"Detox Duo Combo" },
+  { id:"ProteinEnergyCombo",            emoji:"⚡", name:"Protein Energy Combo" },
+  { id:"ImmunityBoosterCombo",          emoji:"🛡️", name:"Immunity Booster Combo" },
+  { id:"GlowSkinCombo",                 emoji:"✨", name:"Glow Skin Combo" },
+  { id:"EnergyRechargeCombo",           emoji:"🔋", name:"Energy Recharge Combo" },
+  { id:"WeeklyDetoxPlan",               emoji:"🌿", name:"Weekly Detox Plan" },
+  { id:"MonthlyWellnessPlan",           emoji:"🗒️", name:"Monthly Wellness Plan" },
+  { id:"FitnessWeeklyPlan",             emoji:"💪", name:"Fitness Weekly Plan" },
+];
+
+const MENU2 = {
+  WeeklySubscriptionSpecialMenu: [
+    { n:"Sunday",            d:"Orange + Pineapple juice",              p:149 },
+    { n:"Monday Energy",     d:"Apple juice",                           p:149 },
+    { n:"Tuesday Fit",       d:"Orange juice",                          p:149 },
+    { n:"Wednesday Boost",   d:"Pineapple juice",                       p:149 },
+    { n:"Thursday Fresh",    d:"Orange + Pomegranate juice",            p:149 },
+    { n:"Friday Power",      d:"Watermelon juice",                      p:149 },
+    { n:"Saturday Special",  d:"Orange + Mosambi",                      p:149 },
+  ],
+  DetoxDuo: [
+    { n:"Detox Duo Combo", d:"Any Green Vitality Juice + Superfood Sprouts Bowl", p:130 },
+  ],
+  ProteinEnergyCombo: [
+    { n:"Protein Energy Combo", d:"Protein Power Cup + Any Fruit Juice", p:179 },
+  ],
+  ImmunityBoosterCombo: [
+    { n:"Immunity Booster Combo", d:"Immunity Booster Juice + Fruit Cup", p:179 },
+  ],
+  GlowSkinCombo: [
+    { n:"Glow Skin Combo", d:"Skin Glow-Up Juice + Fruit Cup",          p:159 },
+  ],
+  EnergyRechargeCombo: [
+    { n:"Energy Recharge Combo", d:"Energy Boost Shake + Protein Power Cup", p:259 },
+  ],
+  WeeklyDetoxPlan: [
+    { n:"Weekly Detox Plan", d:"Fresh Juice Daily + Superfood Sprouts Bowl × 6 Days", p:1130 },
+  ],
+  MonthlyWellnessPlan: [
+    { n:"Monthly Wellness Plan", d:"26 Juices Per Month · Priority Delivery", p:1699 },
+  ],
+  FitnessWeeklyPlan: [
+    { n:"Fitness Weekly Plan", d:"Protein Cup + Green Vitality Juice × 6 Days", p:854 },
+  ],
+};
+
+/* ═══════════════════════════════════════════════
+   UNIFIED MENU LOOKUP (all categories merged)
+═══════════════════════════════════════════════ */
+const ALL_CATS = [...CATS1, ...CATS2];
+const ALL_MENU = { ...MENU1, ...MENU2 };
+
+/* ─── CART STATE ─── */
+let cart = {};   // key -> { catId, name, price, qty }
+let activeCatId = null;
+
+const DELIVERY_THRESHOLD = 199;
+const DELIVERY_CHARGE    = 30;
+
+function cartKey(catId, name) { return catId + '§' + name; }
+function totalQty()     { return Object.values(cart).reduce((s,c) => s + c.qty, 0); }
+function subtotalAmt()  { return Object.values(cart).reduce((s,c) => s + c.price * c.qty, 0); }
+function deliveryFee()  { return subtotalAmt() >= DELIVERY_THRESHOLD ? 0 : DELIVERY_CHARGE; }
+function totalAmt()     { return subtotalAmt() + deliveryFee(); }
+
+/* ─── BUILD CAT GRIDS ─── */
+function buildGrid(containerId, cats) {
+  const grid = document.getElementById(containerId);
+  cats.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'cat-card';
+    card.id = 'cat-' + cat.id;
+    card.innerHTML = `<span class="cat-emoji">${cat.emoji}</span><div class="cat-name">${cat.name}</div>`;
+    card.onclick = () => selectCat(cat.id);
+    grid.appendChild(card);
+  });
+}
+
+buildGrid('catGrid1', CATS1);
+buildGrid('catGrid2', CATS2);
+
+/* ─── SELECT CATEGORY ─── */
+function selectCat(id) {
+  activeCatId = id;
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('cat-' + id).classList.add('active');
+  renderItems();
+  setTimeout(() => {
+    document.getElementById('itemsHeader').scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 80);
+}
+
+/* ─── RENDER ITEMS ─── */
+function renderItems() {
+  const cat   = ALL_CATS.find(c => c.id === activeCatId);
+  const items = ALL_MENU[activeCatId];
+  if (!cat || !items) return;
+
+  document.getElementById('itemsHeader').style.display = 'flex';
+  document.getElementById('itemsCatName').innerHTML = `${cat.emoji} <em>${cat.name}</em>`;
+  document.getElementById('itemsCount').textContent = items.length + ' item' + (items.length !== 1 ? 's' : '');
+  document.getElementById('emptyState').style.display = 'none';
+
+  const list = document.getElementById('itemsList');
+  list.innerHTML = '';
+
+  items.forEach((item, i) => {
+    const key = cartKey(activeCatId, item.n);
+    const qty = cart[key] ? cart[key].qty : 0;
+    const safeId = key.replace(/[^a-z0-9]/gi,'_');
+
+    const div = document.createElement('div');
+    div.className = 'item' + (qty > 0 ? ' in-cart' : '');
+    div.id = 'item-' + safeId;
+    div.style.animationDelay = (i * 0.04) + 's';
+    div.innerHTML = `
+      <div class="item-info">
+        <div class="item-name">${item.n}</div>
+        <div class="item-desc">${item.d || ''}</div>
+      </div>
+      <div class="item-right">
+        <div class="item-price">₹${item.p}</div>
+        <div id="ctrl-item-${safeId}">${qty > 0 ? qtyHTML(activeCatId, item, qty) : addBtnHTML(activeCatId, item)}</div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function esc(str) { return str.replace(/'/g,"\\'"); }
+
+function addBtnHTML(catId, item) {
+  return `<button class="add-btn" onclick="addItem('${esc(catId)}','${esc(item.n)}',${item.p})">+</button>`;
+}
+
+function qtyHTML(catId, item, qty) {
+  return `<div class="qty-wrap">
+    <button class="qty-btn" onclick="changeQty('${esc(catId)}','${esc(item.n)}',${item.p},-1)">−</button>
+    <span class="qty-num">${qty}</span>
+    <button class="qty-btn" onclick="changeQty('${esc(catId)}','${esc(item.n)}',${item.p},1)">+</button>
+  </div>`;
+}
+
+/* ─── CART OPERATIONS ─── */
+function addItem(catId, name, price) {
+  const key = cartKey(catId, name);
+  cart[key] = cart[key] ? { ...cart[key], qty: cart[key].qty + 1 } : { catId, name, price, qty:1 };
+  refreshItemCtrl(catId, name, price);
+  updateGlobalUI();
+  showToast('Added: ' + name);
+}
+
+function changeQty(catId, name, price, delta) {
+  const key = cartKey(catId, name);
+  if (!cart[key]) return;
+  cart[key].qty += delta;
+  if (cart[key].qty <= 0) delete cart[key];
+  refreshItemCtrl(catId, name, price);
+  updateGlobalUI();
+  if (document.getElementById('drawer').classList.contains('open')) renderDrawer();
+}
+
+function removeItem(catId, name, price) {
+  delete cart[cartKey(catId, name)];
+  refreshItemCtrl(catId, name, price);
+  updateGlobalUI();
+  renderDrawer();
+}
+
+function refreshItemCtrl(catId, name, price) {
+  const key    = cartKey(catId, name);
+  const safeId = key.replace(/[^a-z0-9]/gi,'_');
+  const card   = document.getElementById('item-' + safeId);
+  const ctrl   = document.getElementById('ctrl-item-' + safeId);
+  if (!ctrl) return;
+
+  const qty  = cart[key] ? cart[key].qty : 0;
+  const item = ALL_MENU[catId] && ALL_MENU[catId].find(i => i.n === name);
+  if (!item) return;
+
+  ctrl.innerHTML = qty > 0 ? qtyHTML(catId, item, qty) : addBtnHTML(catId, item);
+  if (card) card.classList.toggle('in-cart', qty > 0);
+}
+
+/* ─── GLOBAL UI ─── */
+function updateGlobalUI() {
+  const qty = totalQty();
+  const sub = subtotalAmt();
+  const fee = deliveryFee();
+  const tot = totalAmt();
+
+  const dot = document.getElementById('cartDot');
+  dot.textContent = qty;
+  dot.classList.toggle('on', qty > 0);
+
+  const bar = document.getElementById('floatBar');
+  bar.classList.toggle('show', qty > 0);
+  document.getElementById('fbBadge').textContent = qty;
+  document.getElementById('fbLabel').textContent = qty === 1 ? 'item' : 'items';
+  document.getElementById('fbTotal').textContent = '₹' + tot;
+}
+
+/* ─── DRAWER ─── */
+function openCart() {
+  renderDrawer();
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderDrawer() {
+  const items  = Object.values(cart);
+  const qty    = totalQty();
+  const sub    = subtotalAmt();
+  const fee    = deliveryFee();
+  const tot    = totalAmt();
+  const list   = document.getElementById('cartList');
+  const footer = document.getElementById('drawerFooter');
+  const form   = document.getElementById('customerForm');
+
+  document.getElementById('drawerSub').textContent = qty ? qty + ' item' + (qty > 1 ? 's' : '') : 'Nothing added yet';
+  list.innerHTML = '';
+
+  if (!items.length) {
+    list.innerHTML = `<div class="cart-empty">
+      <div style="font-size:40px;margin-bottom:10px">🛒</div>
+      <div style="font-size:13px;font-weight:300;color:#666">Your cart is empty.<br>Pick something delicious!</div>
+    </div>`;
+    footer.style.display = 'none';
+    form.style.display   = 'none';
+    return;
+  }
+
+  items.forEach(c => {
+    const row = document.createElement('div');
+    row.className = 'ci-row';
+    row.innerHTML = `
+      <div class="ci-info">
+        <div class="ci-name">${c.name}</div>
+        <div class="ci-unit">₹${c.price} × ${c.qty}</div>
+      </div>
+      <div class="ci-right">
+        <div class="qty-wrap">
+          <button class="qty-btn" onclick="changeQty('${esc(c.catId)}','${esc(c.name)}',${c.price},-1)">−</button>
+          <span class="qty-num">${c.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${esc(c.catId)}','${esc(c.name)}',${c.price},1)">+</button>
+        </div>
+        <div class="ci-price">₹${c.price * c.qty}</div>
+        <button class="ci-del" onclick="removeItem('${esc(c.catId)}','${esc(c.name)}',${c.price})">✕</button>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+
+  // Bill breakdown
+  document.getElementById('subtotalAmt').textContent = '₹' + sub;
+  document.getElementById('totalAmt').textContent    = '₹' + tot;
+
+  const banner     = document.getElementById('deliveryBanner');
+  const bannerText = document.getElementById('deliveryBannerText');
+  const deliveryRow = document.getElementById('deliveryRow');
+  const deliveryAmt = document.getElementById('deliveryAmt');
+
+  if (fee === 0) {
+    banner.className = 'delivery-banner free';
+    bannerText.textContent = '🎉 Free delivery on this order!';
+    deliveryRow.querySelector('span:first-child').textContent = 'Delivery';
+    deliveryAmt.textContent = 'FREE';
+    deliveryAmt.style.color = '#2d7a3e';
+    deliveryAmt.style.fontWeight = '600';
+  } else {
+    const needed = DELIVERY_THRESHOLD - sub;
+    banner.className = 'delivery-banner paid';
+    bannerText.textContent = `Add ₹${needed} more for free delivery`;
+    deliveryRow.querySelector('span:first-child').textContent = 'Delivery charge';
+    deliveryAmt.textContent = '₹' + fee;
+    deliveryAmt.style.color = '#a0510e';
+    deliveryAmt.style.fontWeight = '500';
+  }
+
+  form.style.display   = 'flex';
+  footer.style.display = 'block';
+}
+
+/* ─── FORM VALIDATION ─── */
+function validateForm() {
+  const name    = document.getElementById('custName').value.trim();
+  const phone   = document.getElementById('custPhone').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const time    = document.getElementById('custTime').value;
+
+  let valid = true;
+
+  const setError = (fieldId, show) => {
+    const el = document.getElementById(fieldId);
+    el.classList.toggle('has-error', show);
+  };
+
+  setError('fieldName',    !name);
+  setError('fieldPhone',   phone.length < 10);
+  setError('fieldAddress', !address);
+  setError('fieldTime',    !time);
+
+  if (!name)             valid = false;
+  if (phone.length < 10) valid = false;
+  if (!address)          valid = false;
+  if (!time)             valid = false;
+
+  return valid ? { name, phone, address, time } : null;
+}
+
+/* ─── SEND ORDER ─── */
+function sendOrder() {
+  const items = Object.values(cart);
+  if (!items.length) return;
+
+  const details = validateForm();
+  if (!details) {
+    document.getElementById('customerForm').scrollIntoView({ behavior:'smooth', block:'start' });
+    return;
+  }
+
+  // Format time to 12-hour
+  const [h, m] = details.time.split(':');
+  const hour   = parseInt(h);
+  const ampm   = hour >= 12 ? 'PM' : 'AM';
+  const hour12 = hour % 12 || 12;
+  const timeStr = `${hour12}:${m} ${ampm}`;
+
+  const sub = subtotalAmt();
+  const fee = deliveryFee();
+  const tot = totalAmt();
+
+  let msg = `Hello FresCo HealthCraft! 🌿%0A%0A`;
+  msg += `👤 *Name:* ${details.name}%0A`;
+  msg += `📞 *Contact:* ${details.phone}%0A`;
+  msg += `📍 *Address:* ${details.address}%0A`;
+  msg += `🕐 *Delivery Time:* ${timeStr}%0A`;
+  msg += `%0A🛒 *Order:*%0A`;
+  items.forEach((c, i) => {
+    msg += `${i+1}. ${c.name} × ${c.qty} — ₹${c.price * c.qty}%0A`;
+  });
+  msg += `%0ASubtotal: ₹${sub}%0A`;
+  msg += fee > 0
+    ? `Delivery: ₹${fee}%0A`
+    : `Delivery: FREE 🎉%0A`;
+  msg += `*Total Payable: ₹${tot}*%0A%0AKindly confirm my order. Thank you! 🙏`;
+
+  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`);
+}
+
+/* ─── TOAST ─── */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* ─── SCROLL REVEAL ─── */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
