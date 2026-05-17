@@ -307,6 +307,64 @@ padding: 8px 18px 5px;
   flex-shrink: 0;
 }
 
+.cat-card.active .cat-name { color: var(--sage); }
+
+
+/* ─── OFFER PRICE ─── */
+.offer-wrap{
+  margin-top:10px;
+  text-align:center;
+}
+
+.offer-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.old-price{
+  font-size:16px;
+  font-weight:20px;
+  color:#222;
+  position:relative;
+}
+
+.old-price::after{
+  content:'';
+  position:absolute;
+  left:-3px;
+  top:50%;
+  width:110%;
+  height:3px;
+  background:red;
+  transform:rotate(-10deg);
+}
+
+.new-price{
+  font-size:20px;
+  font-weight:20px;
+  color:#111;
+}
+
+.offer-only{
+  font-size:15px;
+  font-weight:20px;
+  color:#111;
+}
+
+.offer-free{
+  font-size:12px;
+  font-weight:20px;
+  margin-top:2px;
+  color:#111;
+}
+
+
+
+
+
 .qty-btn {
   width: 32px; height: 32px;
   background: none;
@@ -334,8 +392,14 @@ padding: 8px 18px 5px;
   padding: 90px 30px 10px;
   color: var(--muted);
 }
-.empty-icon { font-size: 30px; margin-bottom:12px; }
-.empty-text { font-size: 13px; font-weight:300; }
+.empty-icon { font-size: 30px; 
+  text-align: center;
+  margin-bottom:12px; }
+
+
+.empty-text { font-size: 13px; 
+  text-align: center;
+  font-weight:300; }
 
 /* ─── CART OVERLAY ─── */
 .overlay {
@@ -645,12 +709,14 @@ padding: 8px 18px 5px;
 .item-desc {
   font-size: 11px;
   color: var(--muted);
-  white-space: nowrap;
-  overflow: hidden;
-    line-height: 1.6;
-
-  text-overflow: ellipsis;
+  line-height: 1.6;
   font-weight: 300;
+
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+
+  display: block;
 }
 
 .item-right {
@@ -1548,26 +1614,227 @@ const MENU1 = {
    MENU DATA — Section 2: Combos & Plans
 ═══════════════════════════════════════════════ */
 const CATS2 = [
-{ id:"WeeklySubscriptionSpecialMenu", emoji:"🗒️", name:"Weekly Subscription Menu" },
-  { id:"DetoxDuo",                      emoji:"🥗", name:"Detox Duo Combo" },
-  { id:"ProteinEnergyCombo",            emoji:"⚡", name:"Protein Energy Combo" },
-  { id:"ImmunityBoosterCombo",          emoji:"🛡️", name:"Immunity Booster Combo" },
-  { id:"GlowSkinCombo",                 emoji:"✨", name:"Glow Skin Combo" },
-  { id:"EnergyRechargeCombo",           emoji:"🔋", name:"Energy Recharge Combo" },
-  { id:"WeeklyDetoxPlan",               emoji:"🌿", name:"Weekly Detox Plan" },
-  { id:"MonthlyWellnessPlan",           emoji:"🗒️", name:"Monthly Wellness Plan" },
-  { id:"FitnessWeeklyPlan",             emoji:"💪", name:"Fitness Weekly Plan" },
+
+{ id:"WeeklySubscriptionSpecialMenu",
+  emoji:"🗒️",
+  name:"Weekly Subscription Menu Special for allround benefits",
+
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          670/-
+        </div>
+
+        <div>
+          <span class="new-price">650/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+      </div>
+
+    
+    </div>
+  `
+},
+
+{ id:"DetoxDuo",
+  emoji:"🥗",
+  name:"Detox Duo Combo",
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          140/-
+        </div>
+
+        <div>
+          <span class="new-price">130/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+      </div>
+
+    
+    </div>
+  `
+},
+
+{
+  id:"ProteinEnergyCombo",
+  emoji:"⚡",
+  name:"Protein Energy Combo",
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          119/-
+        </div>
+
+        <div>
+          <span class="new-price">179/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+      </div>
+
+    
+    </div>
+  `
+},
+
+{
+  id:"ImmunityBoosterCombo",
+  emoji:"🛡️",
+  name:"Immunity Booster Combo",
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          180/-
+        </div>
+
+        <div>
+          <span class="new-price">160/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+      </div>
+
+    </div>
+  `
+},
+
+{
+  id:"GlowSkinCombo",
+  emoji:"✨",
+  name:"Glow Skin Combo",
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          179/-
+        </div>
+
+        <div>
+          <span class="new-price">159/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+      </div>
+
+    
+    </div>
+  `
+},
+
+{
+  id:"EnergyRechargeCombo",
+  emoji:"🔋",
+  name:"Energy Recharge Combo",
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          259/-
+        </div>
+
+        <div>
+          <span class="new-price">239/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+      </div>
+    </div>
+  `
+},
+
+{
+  id:"WeeklyDetoxPlan",
+  emoji:"🌿",
+  name:"Weekly Detox Plan",
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          960/-
+        </div>
+
+        <div>
+          <span class="new-price">940/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+      </div>
+
+  
+    </div>
+  `
+},
+
+{
+  id:"MonthlyWellnessPlan",
+  emoji:"🗒️",
+  name:"Monthly Wellness Plan",
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          4160/-
+        </div>
+
+        <div>
+          <span class="new-price">4140/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+      </div>
+
+    </div>
+  `
+},
+
+{
+  id:"FitnessWeeklyPlan",
+  emoji:"💪",
+  name:"Fitness Weekly Plan",
+  offer: `
+    <div class="offer-wrap">
+      <div class="offer-row">
+
+        <div class="old-price">
+          1074/-
+        </div>
+
+        <div>
+          <span class="new-price">1054/-</span>
+          <span class="offer-only">only</span>
+        </div>
+
+    </div>
+  `
+},
+
 ];
+
 
 const MENU2 = {
   WeeklySubscriptionSpecialMenu: [
-    { n:"Sunday",            d:"Orange + Pineapple juice",              p:149 },
-    { n:"Monday Energy",     d:"Apple juice",                           p:149 },
-    { n:"Tuesday Fit",       d:"Orange juice",                          p:149 },
-    { n:"Wednesday Boost",   d:"Pineapple juice",                       p:149 },
-    { n:"Thursday Fresh",    d:"Orange + Pomegranate juice",            p:149 },
-    { n:"Friday Power",      d:"Watermelon juice",                      p:149 },
-    { n:"Saturday Special",  d:"Orange + Mosambi",                      p:149 },
+    { n:"Sunday",            d:"Orange + Pineapple juice",              p:100},
+    { n:"Monday Energy",     d:"Apple juice",                           p:100 },
+    { n:"Tuesday Fit",       d:"Orange juice",                          p:100 },
+    { n:"Wednesday Boost",   d:"Pineapple juice",                       p:100 },
+    { n:"Thursday Fresh",    d:"Orange + Pomegranate juice*",            p:100 },
+    { n:"Friday Power",      d:"Watermelon juice",                      p:70 },
+    { n:"Saturday Special",  d:"Orange + Mosambi",                      p:1 },
   ],
   DetoxDuo: [
     { n:"Detox Duo Combo", d:"Any Green Vitality Juice + Superfood Sprouts Bowl", p:130 },
@@ -1576,22 +1843,22 @@ const MENU2 = {
     { n:"Protein Energy Combo", d:"Protein Power Cup + Any Fruit Juice", p:179 },
   ],
   ImmunityBoosterCombo: [
-    { n:"Immunity Booster Combo", d:"Immunity Booster Juice + Fruit Cup", p:179 },
+    { n:"Immunity Booster Combo", d:"Immunity Booster Juice + Fruit Cup", p:160 },
   ],
   GlowSkinCombo: [
     { n:"Glow Skin Combo", d:"Skin Glow-Up Juice + Fruit Cup",          p:159 },
   ],
   EnergyRechargeCombo: [
-    { n:"Energy Recharge Combo", d:"Energy Boost Shake + Protein Power Cup", p:259 },
+    { n:"Energy Recharge Combo", d:"Energy Boost Shake + Protein Power Cup", p:239 },
   ],
   WeeklyDetoxPlan: [
-    { n:"Weekly Detox Plan", d:"Fresh Juice Daily + Superfood Sprouts Bowl × 6 Days", p:1130 },
+    { n:"Weekly Detox Plan", d:"Fresh Juice Daily + Superfood Sprouts Bowl × 6 Days", p:940 },
   ],
   MonthlyWellnessPlan: [
-    { n:"Monthly Wellness Plan", d:"26 Juices Per Month · Priority Delivery", p:1699 },
+    { n:"Monthly Wellness Plan", d:"Fresh Juice Daily + Superfood Sprouts Bowl × 26 Days · Priority Delivery", p:4140 },
   ],
   FitnessWeeklyPlan: [
-    { n:"Fitness Weekly Plan", d:"Protein Cup + Green Vitality Juice × 6 Days", p:854 },
+    { n:"Fitness Weekly Plan", d:"Protein Cup + Green Vitality Juice × 6 Days", p:1054 },
   ],
 };
 
@@ -1621,8 +1888,15 @@ function buildGrid(containerId, cats) {
     const card = document.createElement('div');
     card.className = 'cat-card';
     card.id = 'cat-' + cat.id;
-    card.innerHTML = `<span class="cat-emoji">${cat.emoji}</span><div class="cat-name">${cat.name}</div>`;
-    card.onclick = () => selectCat(cat.id);
+card.innerHTML = `
+  <span class="cat-emoji">${cat.emoji}</span>
+
+  <div class="cat-name">
+    ${cat.name}
+  </div>
+
+  ${cat.offer || ""}
+`;    card.onclick = () => selectCat(cat.id);
     grid.appendChild(card);
   });
 }
